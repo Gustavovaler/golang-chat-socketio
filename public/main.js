@@ -1,26 +1,24 @@
-const socket = io();
+const socket = io()
 
 new Vue({
-  el: '#chat-app',
-  created() {
-    socket.on("chat message", (message) => {
-      console.log(message)
-      this.messages.push({
-        text: message,
-        date: new Date().toLocaleString()
-      })
-    })
-  },
-  data: {
-    message: '',
-    messages: []
-  },
-  methods: {
-    sendMessage() {
-      socket.emit("chat message", this.message)
-      this.message = "";
+    el: '#chat-app',
+    data: {
+        message: '',
+        messages: []
+    },
+    created() {
+        const vm = this;
+        socket.on('chat message', function (msg) {
+            vm.messages.push({
+                text: msg,
+                date: new Date().toLocaleDateString()
+            })
+        })
+    },
+    methods: {
+        sendMessage() {
+            socket.emit('chat message', this.message);
+            this.message = '';
+        }
     }
-  }
-})
-
-
+});
