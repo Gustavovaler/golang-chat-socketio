@@ -23,7 +23,7 @@ func main() {
 	})
 
 	server.OnEvent("/", "chat message", func(so socketio.Conn, msg string){
-		server.BroadcastToRoom("chat_room", "chat message", msg)
+		server.BroadcastToRoom("","chat_room", "chat message", msg)
 	})
 
 	go server.Serve()
